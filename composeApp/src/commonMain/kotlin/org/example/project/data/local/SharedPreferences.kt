@@ -1,4 +1,3 @@
 package org.example.project.data.local
 
-class SharedPreferences {
-}
+class SharedPreferences

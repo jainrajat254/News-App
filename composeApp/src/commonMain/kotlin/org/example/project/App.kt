@@ -1,42 +1,85 @@
 package org.example.project
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.graphics.Color
+import cafe.adriel.voyager.navigator.tab.CurrentTab
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
+import org.example.project.presentation.feature.discover.DiscoverTab
+import org.example.project.presentation.feature.donate.DonateTab
+import org.example.project.presentation.feature.home.HomeTab
+import org.example.project.presentation.feature.news.NewsTab
+import org.example.project.presentation.feature.shorts.ShortsTab
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                }
-            }
+//        Navigator(WelcomeScreen()) { navigator ->
+//            SlideTransition(navigator)
+//        }
+        TabNavigator(HomeTab) {
+            Scaffold(
+                containerColor = Color.White,
+                content = { paddingValues ->
+//                    Column(modifier = Modifier.fillMaxSize()
+//                        .padding(paddingValues)) {
+                        CurrentTab()
+//                    }
+                },
+//                bottomBar = {
+//                    NavigationBar(
+//                        containerColor = Color.White
+//                    ) {
+//                        TabNavigationItem(HomeTab)
+//                        TabNavigationItem(DiscoverTab)
+//                        TabNavigationItem(ShortsTab)
+//                        TabNavigationItem(NewsTab)
+//                        TabNavigationItem(DonateTab)
+//                    }
+//                }
+            )
         }
     }
 }
+
+@Composable
+fun RowScope.TabNavigationItem(tab: Tab) {
+    val tabNavigator = LocalTabNavigator.current
+    val selected = tabNavigator.current == tab
+    val iconColor =
+        if (selected) Color(0xFFFF9500) else Color.Gray  // Change colors based on selection
+
+    NavigationBarItem(
+        selected = selected,
+        onClick = { tabNavigator.current = tab },
+        label = { Text(tab.options.title, color = iconColor) },
+        icon = {
+            tab.options.icon?.let { Icon(it, contentDescription = null, tint = iconColor) }
+        },
+        alwaysShowLabel = true,
+        colors = NavigationBarItemDefaults.colors(
+            unselectedIconColor = Color.Gray,
+            selectedIconColor = Color.Blue,
+            unselectedTextColor = Color.Gray,
+            selectedTextColor = Color.Blue
+        )
+    )
+}
+
+
+
