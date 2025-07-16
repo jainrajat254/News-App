@@ -1,28 +1,19 @@
 package org.example.project
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import org.example.project.presentation.feature.discover.DiscoverTab
-import org.example.project.presentation.feature.donate.DonateTab
 import org.example.project.presentation.feature.home.HomeTab
-import org.example.project.presentation.feature.news.NewsTab
-import org.example.project.presentation.feature.shorts.ShortsTab
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

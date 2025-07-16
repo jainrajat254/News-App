@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +31,7 @@ fun AppBar(
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
+            .statusBarsPadding()
     ) {
         Surface(
             modifier = modifier
@@ -70,7 +72,7 @@ fun AppBar(
         }
         if (showBottomBorder) {
             HorizontalDivider(
-                modifier = Modifier.fillMaxWidth().padding(0.dp),
+                modifier = Modifier.fillMaxWidth(),
                 thickness = 1.dp,
                 color = Color(0xFFFF9500)
             )

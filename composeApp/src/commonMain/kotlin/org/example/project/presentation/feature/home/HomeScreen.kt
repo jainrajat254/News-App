@@ -59,7 +59,6 @@ fun HomeScreen() {
     var isSearchVisible by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
 
-    // **Place ModalNavigationDrawer for HomeScreen only**
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -72,6 +71,33 @@ fun HomeScreen() {
     ) {
         Scaffold(
             containerColor = Color.White,
+            topBar = {
+                if (isSearchVisible) {
+                    CustomSearchBar(
+                        onSearch = { query ->
+                            searchQuery = query
+                            println("Search query: $searchQuery")
+                        },
+                        onClose = {
+                            isSearchVisible = false
+                        }
+                    )
+                } else {
+                    AppBar(
+                        startIcon = Icons.Filled.Menu,
+                        onStartIconClick = {
+                            coroutineScope.launch { drawerState.open() }
+                        },
+                        endIcon = Icons.Filled.Search,
+                        onEndIconClick = {
+                            isSearchVisible = !isSearchVisible
+                        },
+                        centerContent = {
+                            AppLogo(size = 40)
+                        }
+                    )
+                }
+            },
             content = { paddingValues ->
                 Column(
                     modifier = Modifier
@@ -80,35 +106,6 @@ fun HomeScreen() {
                         .padding(paddingValues)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    // Search bar functionality
-                    if (isSearchVisible) {
-                        CustomSearchBar(
-                            onSearch = { query ->
-                                searchQuery = query
-                                println("Search query: $searchQuery")
-                            },
-                            onClose = {
-                                isSearchVisible = false  // Close the search bar
-                            }
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                    } else {
-                        // AppBar with menu and search functionality
-                        AppBar(
-                            startIcon = Icons.Filled.Menu,
-                            onStartIconClick = {
-                                coroutineScope.launch { drawerState.open() }
-                            },
-                            endIcon = Icons.Filled.Search,
-                            onEndIconClick = {
-                                isSearchVisible = !isSearchVisible
-                            },
-                            centerContent = {
-                                AppLogo(size = 40)
-                            }
-                        )
-                    }
-
                     // Content inside HomeScreen
                     NetworkImage(imageUrl = "https://images.indianexpress.com/2024/08/pm-modi-cover.jpg")
 
@@ -197,7 +194,6 @@ fun HomeScreen() {
         )
     }
 }
-
 
 @Preview
 @Composable

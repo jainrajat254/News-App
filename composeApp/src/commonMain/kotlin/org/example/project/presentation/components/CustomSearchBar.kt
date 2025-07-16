@@ -5,14 +5,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,7 +43,9 @@ fun CustomSearchBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = 12.dp)
+            .statusBarsPadding()
+            .padding(top = 8.dp, bottom = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -68,7 +73,7 @@ fun CustomSearchBar(
                     contentDescription = "Search",
                     modifier = Modifier
                         .size(30.dp)
-                        .padding(end = 8.dp),
+                        .padding(start = 8.dp),
                     tint = Color.Gray
                 )
             },
@@ -85,6 +90,16 @@ fun CustomSearchBar(
                     tint = Color.Gray
                 )
             },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color.Black,
+                unfocusedBorderColor = Color.Black,
+                disabledBorderColor = Color.Black,
+                cursorColor = Color(0xFFFF9500),
+                selectionColors = TextSelectionColors(
+                    handleColor = Color(0xFFFF9500),
+                    backgroundColor = Color(0xFFFFF0DB)
+                )
+            ),
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
                 .weight(1f)
