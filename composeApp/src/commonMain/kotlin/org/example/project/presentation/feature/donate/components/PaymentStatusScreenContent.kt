@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.example.project.presentation.feature.home.profile.components.OrderSummaryRow
+import org.example.project.presentation.feature.profile.components.OrderSummaryRow
 
 @Composable
 fun PaymentStatusScreenContent(
@@ -31,13 +31,15 @@ fun PaymentStatusScreenContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White),
-        contentAlignment = Alignment.Center // Center the box both vertically and horizontally
+            .padding(horizontal = 16.dp)
+            .background(Color.White, shape = RoundedCornerShape(12.dp)),
+        contentAlignment = Alignment.Center
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFFF9F9F9), shape = RoundedCornerShape(12.dp))
+                .background(Color(0xFFF5F5F5), shape = RoundedCornerShape(12.dp))
                 .padding(24.dp)
+                .padding(vertical = 16.dp)
                 .widthIn(max = 350.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

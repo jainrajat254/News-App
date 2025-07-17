@@ -28,6 +28,7 @@ fun AppBar(
     onEndIconClick: (() -> Unit)? = null,
     centerContent: (@Composable () -> Unit)? = null,
     showBottomBorder: Boolean = false,
+    endContent: (@Composable (() -> Unit))? = null,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -55,16 +56,26 @@ fun AppBar(
                         Icon(imageVector = startIcon, contentDescription = "Start Icon")
                     }
                 }
+                when {
+                    endIcon != null && onEndIconClick != null -> {
+                        IconButton(
+                            onClick = onEndIconClick,
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .padding(end = 16.dp)
+                        ) {
+                            Icon(imageVector = endIcon, contentDescription = "End Icon")
+                        }
+                    }
 
-                // End Icon
-                if (endIcon != null && onEndIconClick != null) {
-                    IconButton(
-                        onClick = onEndIconClick,
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .padding(end = 16.dp)
-                    ) {
-                        Icon(imageVector = endIcon, contentDescription = "End Icon")
+                    endContent != null -> {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .padding(end = 16.dp)
+                        ) {
+                            endContent()
+                        }
                     }
                 }
                 centerContent?.invoke()

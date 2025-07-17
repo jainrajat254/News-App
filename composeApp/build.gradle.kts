@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -6,7 +7,10 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.composeHotReload)}
+    alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlinSerialization)
+}
+
 
 kotlin {
     androidTarget {
@@ -43,15 +47,16 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta02")
-            implementation("cafe.adriel.voyager:voyager-screenmodel:1.1.0-beta02")
-            implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.1.0-beta02")
-            implementation("cafe.adriel.voyager:voyager-tab-navigator:1.1.0-beta02")
-            implementation("cafe.adriel.voyager:voyager-transitions:1.1.0-beta02")
-            implementation("cafe.adriel.voyager:voyager-koin:1.1.0-beta02")
+            @OptIn(ExperimentalComposeLibrary::class)
+
             implementation("com.github.skydoves:landscapist-coil3:2.5.1")
             implementation("com.github.skydoves:landscapist-animation:2.5.1")
             implementation("com.github.skydoves:landscapist-placeholder:2.5.1")
+
+            implementation(libs.decompose)
+            implementation(libs.decompose.extensions.compose)
+            implementation(libs.kotlinx.serialization.json)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

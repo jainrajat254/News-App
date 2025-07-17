@@ -28,8 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.example.project.presentation.feature.auth.components.AuthButton
-import org.example.project.presentation.feature.home.profile.components.CustomOutlinedTextField
+import org.example.project.presentation.components.AuthButton
+import org.example.project.presentation.feature.profile.components.CustomOutlinedTextField
 
 @Composable
 fun DonateScreenContent(modifier: Modifier = Modifier) {

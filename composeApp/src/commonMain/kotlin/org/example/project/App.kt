@@ -1,75 +1,43 @@
 package org.example.project
 
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import cafe.adriel.voyager.navigator.tab.CurrentTab
-import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
-import cafe.adriel.voyager.navigator.tab.Tab
-import cafe.adriel.voyager.navigator.tab.TabNavigator
-import org.example.project.presentation.feature.home.HomeTab
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import com.arkivanov.decompose.extensions.compose.stack.Children
+import com.arkivanov.decompose.extensions.compose.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import org.example.project.presentation.feature.donate.DonateScreen
+import org.example.project.presentation.feature.home.HomeScreen
+import org.example.project.presentation.feature.language.LanguageSelectionScreen
+import org.example.project.presentation.feature.login.getOtp.LoginOtpRequestScreen
+import org.example.project.presentation.feature.login.verifyOtp.LoginOtpVerifyScreen
+import org.example.project.presentation.feature.onboarding.WelcomeScreen
+import org.example.project.presentation.feature.profile.ProfileScreen
+import org.example.project.presentation.feature.signup.getOtp.SignupOtpRequestScreen
+import org.example.project.presentation.feature.signup.verifyOtp.SignupOtpVerifyScreen
+import org.example.project.presentation.root.Child
+import org.example.project.presentation.root.RootComponent
 
 @Composable
-@Preview
-fun App() {
+fun App(rootComponent: RootComponent) {
     MaterialTheme {
-//        Navigator(WelcomeScreen()) { navigator ->
-//            SlideTransition(navigator)
-//        }
-        TabNavigator(HomeTab) {
-            Scaffold(
-                containerColor = Color.White,
-                content = { paddingValues ->
-//                    Column(modifier = Modifier.fillMaxSize()
-//                        .padding(paddingValues)) {
-                        CurrentTab()
-//                    }
-                },
-//                bottomBar = {
-//                    NavigationBar(
-//                        containerColor = Color.White
-//                    ) {
-//                        TabNavigationItem(HomeTab)
-//                        TabNavigationItem(DiscoverTab)
-//                        TabNavigationItem(ShortsTab)
-//                        TabNavigationItem(NewsTab)
-//                        TabNavigationItem(DonateTab)
-//                    }
-//                }
-            )
+        val childStack by rootComponent.childStack.subscribeAsState()
+
+        Children(stack = childStack, animation = stackAnimation(slide())) { child ->
+            when (val instance = child.instance) {
+                is Child.WelcomeScreen -> WelcomeScreen(instance.component)
+                is Child.LoginOtpScreen -> LoginOtpRequestScreen(instance.component)
+                is Child.LoginOtpVerifyScreen -> LoginOtpVerifyScreen(instance.component)
+                is Child.SignupOtpScreen -> SignupOtpRequestScreen(instance.component)
+                is Child.SignupOtpVerifyScreen -> SignupOtpVerifyScreen(instance.component)
+                is Child.HomeScreen -> HomeScreen(instance.component)
+                is Child.ProfileScreen -> ProfileScreen(instance.component)
+                is Child.DonationScreen -> DonateScreen(instance.component)
+                is Child.LanguageSelectionScreen -> LanguageSelectionScreen(instance.component)
+            }
         }
     }
-}
-
-@Composable
-fun RowScope.TabNavigationItem(tab: Tab) {
-    val tabNavigator = LocalTabNavigator.current
-    val selected = tabNavigator.current == tab
-    val iconColor =
-        if (selected) Color(0xFFFF9500) else Color.Gray  // Change colors based on selection
-
-    NavigationBarItem(
-        selected = selected,
-        onClick = { tabNavigator.current = tab },
-        label = { Text(tab.options.title, color = iconColor) },
-        icon = {
-            tab.options.icon?.let { Icon(it, contentDescription = null, tint = iconColor) }
-        },
-        alwaysShowLabel = true,
-        colors = NavigationBarItemDefaults.colors(
-            unselectedIconColor = Color.Gray,
-            selectedIconColor = Color.Blue,
-            unselectedTextColor = Color.Gray,
-            selectedTextColor = Color.Blue
-        )
-    )
 }
 
 

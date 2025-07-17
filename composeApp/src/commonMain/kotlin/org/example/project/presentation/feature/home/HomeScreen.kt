@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
@@ -32,30 +31,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
-import org.example.project.TabNavigationItem
 import org.example.project.presentation.components.AppBar
+import org.example.project.presentation.components.AppLogo
 import org.example.project.presentation.components.ChipGroup
 import org.example.project.presentation.components.CustomSearchBar
 import org.example.project.presentation.components.NetworkImage
-import org.example.project.presentation.feature.auth.components.AppLogo
-import org.example.project.presentation.feature.discover.DiscoverTab
-import org.example.project.presentation.feature.donate.DonateTab
+import org.example.project.presentation.feature.drawer.AppSideDrawer
 import org.example.project.presentation.feature.home.components.ArticleCard
-import org.example.project.presentation.feature.home.drawer.AppSideDrawer
-import org.example.project.presentation.feature.news.NewsTab
-import org.example.project.presentation.feature.shorts.ShortsTab
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    component: HomeComponent
+) {
     val categories = listOf("All", "News", "TV News", "People-Corner")
     var selectedCategory by remember { mutableStateOf(categories[0]) }
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
-    // State for showing/hiding the search bar
     var isSearchVisible by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
 
@@ -63,8 +57,19 @@ fun HomeScreen() {
         drawerState = drawerState,
         drawerContent = {
             AppSideDrawer(
-                onItemSelected = { selected ->
+                component = component,
+                onItemSelected = { selectedItem ->
                     coroutineScope.launch { drawerState.close() }
+
+                    when (selectedItem) {
+                        "notifications" -> component.onEvent(HomeEvent.OnNotificationsClicked)
+                        "saved" -> component.onEvent(HomeEvent.OnSavedClicked)
+                        "surveys" -> component.onEvent(HomeEvent.OnSurveysClicked)
+                        "content_language" -> component.onEvent(HomeEvent.OnContentLanguageClicked)
+                        "donate" -> component.onEvent(HomeEvent.OnDonateClicked)
+                        "logout" -> component.onEvent(HomeEvent.OnLogOutClicked)
+                        else -> Unit
+                    }
                 }
             )
         }
@@ -85,16 +90,10 @@ fun HomeScreen() {
                 } else {
                     AppBar(
                         startIcon = Icons.Filled.Menu,
-                        onStartIconClick = {
-                            coroutineScope.launch { drawerState.open() }
-                        },
+                        onStartIconClick = { coroutineScope.launch { drawerState.open() } },
                         endIcon = Icons.Filled.Search,
-                        onEndIconClick = {
-                            isSearchVisible = !isSearchVisible
-                        },
-                        centerContent = {
-                            AppLogo(size = 40)
-                        }
+                        onEndIconClick = { isSearchVisible = !isSearchVisible },
+                        centerContent = { AppLogo(size = 40) }
                     )
                 }
             },
@@ -106,12 +105,10 @@ fun HomeScreen() {
                         .padding(paddingValues)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    // Content inside HomeScreen
                     NetworkImage(imageUrl = "https://images.indianexpress.com/2024/08/pm-modi-cover.jpg")
 
                     Spacer(modifier = Modifier.height(28.dp))
 
-                    // Category chips
                     ChipGroup(
                         categories = categories,
                         selectedCategory = selectedCategory,
@@ -120,7 +117,6 @@ fun HomeScreen() {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Article Section
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -145,7 +141,6 @@ fun HomeScreen() {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Sample Article Card
                     ArticleCard(
                         heading = "Making the Most of Outdoor Space for a Bountiful and Beautiful Vegetable Garden",
                         source = "Nature Channel",
@@ -155,7 +150,6 @@ fun HomeScreen() {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Survey Section
                     Text(
                         text = "Survey of the week",
                         color = Color.Black,
@@ -176,27 +170,7 @@ fun HomeScreen() {
 
                     Spacer(modifier = Modifier.padding(bottom = 40.dp))
                 }
-            },
-            bottomBar = {
-                // Show bottom navigation only when drawer is closed
-                if (drawerState.isClosed) {
-                    NavigationBar(
-                        containerColor = Color.White
-                    ) {
-                        TabNavigationItem(HomeTab)
-                        TabNavigationItem(DiscoverTab)
-                        TabNavigationItem(ShortsTab)
-                        TabNavigationItem(NewsTab)
-                        TabNavigationItem(DonateTab)
-                    }
-                }
             }
         )
     }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
 }
