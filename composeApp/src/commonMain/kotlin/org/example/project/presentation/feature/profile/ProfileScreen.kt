@@ -24,7 +24,7 @@ fun ProfileScreen(
         topBar = {
             AppBar(
                 startIcon = Icons.AutoMirrored.Outlined.ArrowBack,
-                onStartIconClick = {},
+                onStartIconClick = { component.onEvent(ProfileEvent.OnBackClicked) },
                 centerContent = {
                     Text(
                         text = "Edit Profile",
@@ -37,7 +37,7 @@ fun ProfileScreen(
             )
         },
         content = { padding ->
-            ProfileContent(Modifier.padding(padding))
+            ProfileContent(Modifier.padding(padding), component = component)
         }
     )
 }

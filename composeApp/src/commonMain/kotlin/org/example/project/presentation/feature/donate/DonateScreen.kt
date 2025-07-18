@@ -1,8 +1,6 @@
 package org.example.project.presentation.feature.donate
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,14 +13,12 @@ import org.example.project.presentation.feature.donate.components.DonateScreenCo
 
 @Composable
 fun DonateScreen(
-    component: DonationComponent
+    component: DonateComponent
 ) {
     Scaffold(
         containerColor = Color.White,
         topBar = {
             AppBar(
-                startIcon = Icons.AutoMirrored.Default.ArrowBack,
-                onStartIconClick = {},
                 centerContent = {
                     Text(
                         text = "Details & Payment",
@@ -36,7 +32,7 @@ fun DonateScreen(
             )
         },
         content = { paddingValues ->
-            DonateScreenContent(modifier = Modifier.padding(paddingValues))
+            DonateScreenContent(modifier = Modifier.padding(paddingValues), component = component)
         },
     )
 }

@@ -24,9 +24,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.example.project.presentation.components.AuthButton
+import org.example.project.presentation.feature.profile.ProfileComponent
+import org.example.project.presentation.feature.profile.ProfileEvent
 
 @Composable
-fun ProfileContent(modifier: Modifier = Modifier) {
+fun ProfileContent(modifier: Modifier = Modifier, component: ProfileComponent) {
     val name = remember { mutableStateOf("Keshav Chandra") }
     val mobile = remember { mutableStateOf("+91 9876543210") }
 
@@ -71,7 +73,6 @@ fun ProfileContent(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.titleMedium
         )
 
-        // Using FlowRow to wrap chips and align from start
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -103,7 +104,7 @@ fun ProfileContent(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.weight(1f))
 
         AuthButton(
-            onClick = { /* Handle button click */ },
+            onClick = { component.onEvent(ProfileEvent.OnSaveClicked) },
             buttonText = "Save",
         )
     }

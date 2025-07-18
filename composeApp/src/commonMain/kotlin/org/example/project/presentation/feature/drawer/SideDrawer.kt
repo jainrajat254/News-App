@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
@@ -26,20 +25,15 @@ import androidx.compose.ui.unit.dp
 import org.example.project.presentation.feature.drawer.components.AppDrawerItem
 import org.example.project.presentation.feature.drawer.components.DrawerHeader
 import org.example.project.presentation.feature.drawer.components.DrawerUserProfile
-import org.example.project.presentation.feature.home.HomeComponent
-import org.example.project.presentation.feature.home.HomeEvent
 
 @Composable
 fun AppSideDrawer(
     onItemSelected: (String) -> Unit = {},
-    component: HomeComponent
 ) {
     Box(
         modifier = Modifier
             .background(Color.White)
             .padding(16.dp)
-            .statusBarsPadding()
-            .padding(bottom = 60.dp)
             .width(250.dp)
     ) {
         Column(
@@ -51,7 +45,7 @@ fun AppSideDrawer(
             Spacer(modifier = Modifier.height(24.dp))
 
             DrawerUserProfile(
-                onProfileClicked = { component.onEvent(HomeEvent.OnViewProfileClicked) }
+                onProfileClicked = { onItemSelected("profile") }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -83,13 +77,6 @@ fun AppSideDrawer(
                 icon = Icons.Default.Language,
                 onClick = { onItemSelected("content_language") }
             )
-            AppDrawerItem(
-                label = "Donate",
-                icon = Icons.Default.VolunteerActivism,
-                onClick = {
-                    component.onEvent(HomeEvent.OnDonateClicked)
-                }
-            )
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -104,7 +91,7 @@ fun AppSideDrawer(
             AppDrawerItem(
                 label = "Log out",
                 icon = Icons.AutoMirrored.Filled.Logout,
-                onClick = { component.onEvent(HomeEvent.OnLogOutClicked) },
+                onClick = { onItemSelected("logout") },
                 labelColor = Color(0xFFFF9500),
                 fontWeight = FontWeight.W600
             )

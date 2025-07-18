@@ -37,7 +37,7 @@ fun LanguageSelectionScreen(
         topBar = {
             AppBar(
                 startIcon = Icons.AutoMirrored.Default.ArrowBack,
-                onStartIconClick = { },
+                onStartIconClick = { component.onEvent(LanguageSelectionEvent.OnBackClicked) },
                 endContent = {
                     Text(
                         text = "Skip",

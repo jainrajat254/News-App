@@ -28,8 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.presentation.components.AppBar
 import org.example.project.presentation.components.AuthButton
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
 
 data class SurveyQuestion(
     val id: Int,
@@ -39,7 +37,7 @@ data class SurveyQuestion(
 )
 
 @Composable
-fun SurveyScreenContent() {
+fun SurveyScreen(component: SurveysComponent) {
     var questions by remember {
         mutableStateOf(
             listOf(
@@ -71,7 +69,7 @@ fun SurveyScreenContent() {
         topBar = {
             AppBar(
                 startIcon = Icons.AutoMirrored.Filled.ArrowBack,
-                onStartIconClick = { /* Handle back */ },
+                onStartIconClick = { component.onEvent(SurveyEvent.OnBackClicked) },
                 centerContent = {
                     Text(
                         text = "Surveys",
@@ -161,11 +159,4 @@ fun SurveyScreenContent() {
             }
         }
     )
-}
-
-
-@Preview
-@Composable
-fun SurveyScreen() {
-    SurveyScreenContent()
 }

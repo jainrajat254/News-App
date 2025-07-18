@@ -28,11 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.presentation.components.AppBar
 import org.example.project.presentation.components.NetworkImage
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SavedScreenContent(savedItems: List<SavedMediaItem> = emptyList()) {
+fun SavedItemsScreen(
+    component: SavedItemsComponent,
+    savedItems: List<SavedMediaItem> = emptyList()
+) {
 
     val savedItems = listOf(
         SavedMediaItem(
@@ -61,7 +63,7 @@ fun SavedScreenContent(savedItems: List<SavedMediaItem> = emptyList()) {
         topBar = {
             AppBar(
                 startIcon = Icons.AutoMirrored.Default.ArrowBack,
-                onStartIconClick = {},
+                onStartIconClick = { component.onEvent(SavedItemsEvent.OnBackClicked) },
                 showBottomBorder = true,
                 centerContent = {
                     Text(
@@ -121,10 +123,3 @@ data class SavedMediaItem(
     val url: String,
     val aspectRatio: Float = 1f
 )
-
-
-@Preview
-@Composable
-fun SavedScreen() {
-    SavedScreenContent()
-}

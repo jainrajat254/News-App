@@ -2,7 +2,6 @@ package org.example.project.presentation.root
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 sealed class Configuration {
 
@@ -27,18 +26,31 @@ sealed class Configuration {
     @Serializable
     data object ProfileScreen : Configuration()
 
-    //        @Serializable
-//        data object NotificationsScreen : Configuration()
-//
-//        @Serializable
-//        data object SavedItemsScreen : Configuration()
-//
-//        @Serializable
-//        data object SurveysScreen : Configuration()
-//
+    @Serializable
+    data object NotificationsScreen : Configuration()
+
+    @Serializable
+    data object SavedItemsScreen : Configuration()
+
+    @Serializable
+    data object SurveysScreen : Configuration()
+
     @Serializable
     data object LanguageSelectionScreen : Configuration()
 
     @Serializable
     data object DonationScreen : Configuration()
+
+    @Serializable
+    data object PaymentScreen : Configuration()
+
+    @Serializable
+    data object DiscoverScreen : Configuration()
+
+    @Serializable
+    data object NewsScreen : Configuration()
+
+    @Serializable
+    data object ShortsScreen : Configuration()
+
 }

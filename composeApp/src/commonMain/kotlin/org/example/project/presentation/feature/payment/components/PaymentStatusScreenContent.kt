@@ -1,4 +1,4 @@
-package org.example.project.presentation.feature.donate.components
+package org.example.project.presentation.feature.payment.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -26,7 +26,7 @@ import org.example.project.presentation.feature.profile.components.OrderSummaryR
 
 @Composable
 fun PaymentStatusScreenContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier

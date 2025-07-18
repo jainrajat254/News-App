@@ -29,14 +29,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.presentation.components.AuthButton
+import org.example.project.presentation.feature.donate.DonateComponent
+import org.example.project.presentation.feature.donate.DonateEvent
 import org.example.project.presentation.feature.profile.components.CustomOutlinedTextField
 
 @Composable
-fun DonateScreenContent(modifier: Modifier = Modifier) {
+fun DonateScreenContent(modifier: Modifier = Modifier, component: DonateComponent) {
 
     val name = remember { mutableStateOf("") }
     val mobile = remember { mutableStateOf("") }
     val amount = remember { mutableStateOf("") }
+    val panNumber = remember { mutableStateOf("") }
     val isChecked = remember { mutableStateOf(false) }
     val predefinedAmounts = listOf("₹1000", "₹2000", "₹3000")
     val selectedAmount = remember { mutableStateOf("") }
@@ -45,7 +48,7 @@ fun DonateScreenContent(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 30.dp)
+            .padding(top = 30.dp, start = 8.dp, end = 8.dp)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -96,6 +99,18 @@ fun DonateScreenContent(modifier: Modifier = Modifier) {
                 lineHeight = 20.sp
             )
         }
+        if (isChecked.value) {
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CustomOutlinedTextField(
+                value = panNumber.value,
+                onValueChange = { panNumber.value = it },
+                labelText = "PAN Number",
+                hint = "Enter your details",
+                containerColor = Color.White,
+                borderColor = Color.Gray
+            )
+        }
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -139,7 +154,7 @@ fun DonateScreenContent(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.weight(1f))
 
         AuthButton(
-            onClick = {},
+            onClick = { component.onEvent(DonateEvent.OnDonateClicked) },
             buttonText = "Donate",
             enabled = name.value.isNotEmpty() && mobile.value.isNotEmpty() && amount.value.isNotEmpty()
         )
