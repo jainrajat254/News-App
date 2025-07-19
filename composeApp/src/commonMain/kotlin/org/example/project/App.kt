@@ -14,7 +14,6 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import org.example.project.navigation.BottomNavigationBar
 import org.example.project.presentation.feature.discover.DiscoverScreen
 import org.example.project.presentation.feature.donate.DonateScreen
 import org.example.project.presentation.feature.home.HomeScreen
@@ -31,6 +30,7 @@ import org.example.project.presentation.feature.shorts.ShortsScreen
 import org.example.project.presentation.feature.signup.getOtp.SignupOtpRequestScreen
 import org.example.project.presentation.feature.signup.verifyOtp.SignupOtpVerifyScreen
 import org.example.project.presentation.feature.survey.SurveyScreen
+import org.example.project.presentation.navigation.BottomNavigationBar
 import org.example.project.presentation.root.Child
 import org.example.project.presentation.root.Configuration
 import org.example.project.presentation.root.RootComponent

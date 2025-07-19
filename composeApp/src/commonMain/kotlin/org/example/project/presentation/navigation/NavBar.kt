@@ -1,4 +1,4 @@
-package org.example.project.navigation
+package org.example.project.presentation.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons

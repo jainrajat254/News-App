@@ -57,6 +57,8 @@ kotlin {
             implementation(libs.decompose.extensions.compose)
             implementation(libs.kotlinx.serialization.json)
 
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

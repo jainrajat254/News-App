@@ -10,7 +10,6 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.router.stack.replaceCurrent
-import org.example.project.navigation.Tab
 import org.example.project.presentation.feature.discover.DiscoverComponent
 import org.example.project.presentation.feature.donate.DonateComponent
 import org.example.project.presentation.feature.home.HomeComponent
@@ -27,6 +26,7 @@ import org.example.project.presentation.feature.shorts.ShortsComponent
 import org.example.project.presentation.feature.signup.getOtp.SignupOtpRequestComponent
 import org.example.project.presentation.feature.signup.verifyOtp.SignupOtpVerifyComponent
 import org.example.project.presentation.feature.survey.SurveysComponent
+import org.example.project.presentation.navigation.Tab
 
 class RootComponent(
     componentContext: ComponentContext
